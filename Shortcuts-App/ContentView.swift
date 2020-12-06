@@ -29,12 +29,13 @@ struct FilteringList<T: Identifiable, Content: View>: View {
     
     var body: some View {
         VStack {
-            TextField("Type to filter", text: $filterString.onChange(applyFilter))
+            TextField("Search shortcuts", text: $filterString.onChange(applyFilter))
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
             
             List(filteredItems, rowContent: content)
                 .onAppear(perform: applyFilter)
+                .listStyle(InsetGroupedListStyle())
         }
     }
     
@@ -67,17 +68,18 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             FilteringList(users, filterKeys: \.title, \.keys) { shortcuts in
-                VStack(alignment: .leading) {
+                HStack {
                     Text(shortcuts.title)
                         .font(.headline)
+                    Spacer()
                     Text(shortcuts.keys)
                         .foregroundColor(.secondary)
+                        .padding(.trailing, 0)
                 }
             }
             .navigationBarTitle("Sketch Shortcuts")
         }
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
