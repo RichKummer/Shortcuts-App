@@ -10,5 +10,6 @@ import Foundation
 struct Shortcut: Decodable, Identifiable {
     let id: UUID
     let title: String
-    let keys: String
+    let key1: String
+    let key2: String
 }

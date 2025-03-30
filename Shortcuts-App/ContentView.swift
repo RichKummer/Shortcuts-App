@@ -32,6 +32,7 @@ struct FilteringList<T: Identifiable, Content: View>: View {
             TextField("Search shortcuts", text: $filterString.onChange(applyFilter))
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
+                .padding(.bottom, 12)
             
             List(filteredItems, rowContent: content)
                 .onAppear(perform: applyFilter)
@@ -67,20 +68,25 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            FilteringList(users, filterKeys: \.title, \.keys) { shortcuts in
+            FilteringList(users, filterKeys: \.title, \.key1) { shortcuts in
                 HStack {
                     Text(shortcuts.title)
                         .font(.headline)
                     Spacer()
-                    Text(shortcuts.keys)
+                    Text(shortcuts.key1)
+                        .foregroundColor(.secondary)
+                        .padding(.trailing, 4)
+                    Text(shortcuts.key2)
                         .foregroundColor(.secondary)
                         .padding(.trailing, 0)
                 }
             }
-            .navigationBarTitle("Sketch Shortcuts")
+            .navigationBarTitle("Figma Shortcuts").padding(.trailing, 8)
         }
     }
 }
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
